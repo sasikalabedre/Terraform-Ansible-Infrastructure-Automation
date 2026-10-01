@@ -1,0 +1,42 @@
+---
+- name: Configure Web Server
+  hosts: webservers
+  become: true
+
+  vars_files:
+    - vars.yml
+
+  tasks:
+    - name: Install web server
+      apt:
+        name: "{{ web_package }}"
+        state: present
+        update_cache: true
+
+    - name: Check nginx installation
+      command: nginx -v
+      register: nginx_version
+
+    - name: Show nginx version
+      debug:
+        var: nginx_version.stderr
+
+    - name: Check nginx service status
+      command: systemctl is-active nginx
+      register: nginx_status
+
+    - name: Show nginx service status
+      debug:
+        var: nginx_status.stdout
+    - name: Start web server
+      service:
+        name: "{{ web_package }}"
+        state: started
+        enabled: true
+
+    - name: Deploy website
+      copy:
+        src: index.html
+        dest: /var/www/html/index.html
+        mode: '0644'
+

@@ -1,0 +1,4 @@
+constraint: constraints/compute.vmExternalIpAccess
+listPolicy:
+  allowedValues:
+    - projects/learningproject-510004/zones/us-central1-a/instances/tf-web-server

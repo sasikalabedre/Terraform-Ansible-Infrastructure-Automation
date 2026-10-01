@@ -1,0 +1,12 @@
+[webservers]
+web1 ansible_host=34.9.80.88
+web2 ansible_host=34.55.56.3
+web3 ansible_host=34.29.215.35
+
+
+
+[webservers:vars]
+ansible_user=sasikala_bedre_gmail_com
+
+
+
